@@ -46,6 +46,17 @@ The plugin has been tested with ActiveRecord 2.3.5 and MySQL 5.0, but other vers
       ...
     end
   end
+  
+The produced SQL would look like this:
+
+  ALTER TABLE `people`
+  CHANGE `first_name` `first_name` varchar(255) DEFAULT 'John' NOT NULL,
+  ADD `last_name` varchar(255) DEFAULT 'Doe' NOT NULL,
+  DROP `street`,
+  CHANGE `phone` `telephone` varchar(64),
+  ADD INDEX `index_people_on_last_name` (`last_name`),
+  DROP INDEX `index_people_on_zip`
+
 
 +alter_table+ works almost like +create_table+. The following methods are available:
 
