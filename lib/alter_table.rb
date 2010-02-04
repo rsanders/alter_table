@@ -55,14 +55,13 @@ class ActiveRecord::Migration::AlterTableStatement
     column_names = Array(column_name)
     index_name   = options[:name] || index_name(@table_name, :column => column_names)
     index_type   = options[:unique] ? "UNIQUE" : ""
-    
+
     quoted_column_names = column_names.map { |e| quote_column_name(e) }.join(", ")
     @statements << "ADD #{index_type} INDEX #{quote_column_name(index_name)} (#{quoted_column_names})".squish
   end
   
-  def remove_index(column_name, options = {})
-    column_names = Array(column_name)
-    index_name   = index_name(@table_name, :column => column_names)
+  def remove_index(options = {})
+    index_name   = options[:name] || index_name(@table_name, options)
     @statements << "DROP INDEX #{quote_column_name(index_name)}"
   end
   
