@@ -160,8 +160,6 @@ class AlterTableMethodTest < Test::Unit::TestCase
     assert indexes.empty?
   end
 
-  class Person < ActiveRecord::Base; end
-
   def test_multiple_alterations
     # setup columns and index so we can alter them
     ActiveRecord::Migration.alter_table(:people) do |t|
