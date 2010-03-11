@@ -60,8 +60,8 @@ class ActiveRecord::Migration::AlterTableStatement
     @statements << "ADD #{index_type} INDEX #{quote_column_name(index_name)} (#{quoted_column_names})".squish
   end
   
-  def remove_index(options = {})
-    index_name   = options[:name] || index_name(@table_name, options)
+  def remove_index(column_name, options = {})
+    index_name   = options[:name] || index_name(@table_name, [column_name])
     @statements << "DROP INDEX #{quote_column_name(index_name)}"
   end
   
