@@ -139,7 +139,7 @@ class AlterTableMethodTest < Test::Unit::TestCase
     end
 
     ActiveRecord::Migration.alter_table(:people) do |t|
-      t.remove_index(:column => :first_name)
+      t.remove_index(:first_name)
     end
     indexes = ActiveRecord::Base.connection.indexes("people")
 
@@ -153,7 +153,7 @@ class AlterTableMethodTest < Test::Unit::TestCase
     end
 
     ActiveRecord::Migration.alter_table(:people) do |t|
-      t.remove_index(:name => "my_named_index")
+      t.remove_index(:first_name, :name => "my_named_index")
     end
     indexes = ActiveRecord::Base.connection.indexes("people")
 
@@ -175,7 +175,7 @@ class AlterTableMethodTest < Test::Unit::TestCase
       t.remove_column(:removeable_column)
       t.rename_column(:renameable_column, :new_renameable_column)
       t.add_index(:new_column)
-      t.remove_index(:column => :indexed_column)
+      t.remove_index(:indexed_column)
     end
     
     assert_match /(ALTER TABLE.*){1}/, alter_table_statement.to_s
